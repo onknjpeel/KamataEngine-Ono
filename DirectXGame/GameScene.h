@@ -24,5 +24,7 @@ private:
 
 	Camera camera_;
 
-	Particle* particle_ = nullptr;
+	std::list<Particle*> particles_;
+
+	Vector3 velocity;
 };

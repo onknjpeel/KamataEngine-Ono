@@ -5,7 +5,7 @@ using namespace KamataEngine;
 
 class Particle {
 public:
-	void Initialize(Model* model);
+	void Initialize(Model* model,Vector3 position,Vector3 velocity);
 
 	void Update();
 
@@ -15,4 +15,10 @@ private:
 	WorldTransform worldTransform_;
 
 	Model* model_ = nullptr;
+
+	ObjectColor objectColor_;
+
+	Vector4 color_;
+
+	Vector3 velocity_;
 };
