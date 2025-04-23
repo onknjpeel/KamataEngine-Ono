@@ -1,5 +1,5 @@
 #pragma once
-#include "KamataEngine.h"
+#include <KamataEngine.h>
 
 using namespace KamataEngine;
 

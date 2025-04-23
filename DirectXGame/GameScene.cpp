@@ -2,13 +2,19 @@
 
 using namespace KamataEngine;
 
-GameScene::~GameScene() { delete modelParticle_; }
+GameScene::~GameScene() {
+	delete modelParticle_;
+	delete particle_;
+}
 
 void GameScene::Initialize() { 
 	modelParticle_ = Model::CreateSphere(4, 4);
 	camera_.Initialize();
+
+	particle_ = new Particle();
+	particle_->Initialize();
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { particle_->Update(); }
 
-void GameScene::Draw() {}
+void GameScene::Draw() { particle_->Draw(); }
