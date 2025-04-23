@@ -22,7 +22,7 @@ void GameScene::Draw() {
 
 	Model::PreDraw(dxCommon->GetCommandList());
 
-	particle_->Draw(camera_);
+	particle_->Draw(camera_); 
 
 	Model::PostDraw();
 }
