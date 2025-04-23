@@ -62,11 +62,79 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	// コンパイル済みのShader、エラー時情報の格納場所の用意
 	ID3DBlob* vsBlob = nullptr;
-	ID3DBlob* psBloob = nullptr;
+	ID3DBlob* psBlob = nullptr;
 	ID3DBlob* errorBlob = nullptr;
 	// 頂点シェーダの読み込みとコンパイル
 	std::wstring vsFile = L"Resources/shaders/TestVS.hlsl";
-	hr = D3DCompileFromFile(vsFile.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errorBlob);
+	hr = D3DCompileFromFile(vsFile.c_str(),
+		nullptr, 
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"main", "vs_5_0",
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		0, &vsBlob, &errorBlob);
+	if (FAILED(hr)) {
+		DebugText::GetInstance()->ConsolePrintf(
+			std::system_category().message(hr).c_str());
+		if (errorBlob) {
+			DebugText::GetInstance()->ConsolePrintf(
+				reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
+		}
+		assert(false);
+	}
+	//ピクセルシェーダの読み込みとコンパイル
+	std::wstring psFile = L"Resources/shaders/TestPS.hlsl";
+	hr = D3DCompileFromFile(psFile.c_str(),
+		nullptr, 
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"main", "ps_5_0", 
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		0, &psBlob, &errorBlob);
+	if (FAILED(hr)) {
+		DebugText::GetInstance()->ConsolePrintf(
+			std::system_category().message(hr).c_str());
+		if (errorBlob) {
+			DebugText::GetInstance()->ConsolePrintf(
+				reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
+		}
+		assert(false);
+	}
+
+	//PSO(PipelineStateObject)の生成 ---------
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
+	graphicsPipelineStateDesc.pRootSignature = rootSignature;
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;
+	graphicsPipelineStateDesc.VS = {vsBlob->GetBufferPointer(), vsBlob->GetBufferSize()};
+	graphicsPipelineStateDesc.PS = {psBlob->GetBufferPointer(), psBlob->GetBufferSize()};
+	graphicsPipelineStateDesc.BlendState = blendDesc;
+	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;
+	//書き込むRTVの情報
+	graphicsPipelineStateDesc.NumRenderTargets = 1;
+	graphicsPipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+	//利用するトポロジ(形状)のタイプ。三角形
+	graphicsPipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	//どのように画面に色を打ち込むのかの設定(今は気にしなくてもいい)
+	graphicsPipelineStateDesc.SampleDesc.Count = 1;
+	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
+	//準備は整った。PSOを生成する
+	ID3D12PipelineState* graphicsPipelineState = nullptr;
+	hr = dxCommon->GetDevice()->CreateGraphicsPipelineState(
+		&graphicsPipelineStateDesc, IID_PPV_ARGS(&graphicsPipelineState));
+	assert(SUCCEEDED(hr));
+
+	// VertexResourcesの生成
+	// 頂点リソース用のヒープの設定
+	D3D12_HEAP_PROPERTIES uploadHeapProperties{};
+	uploadHeapProperties.Type = D3D12_HEAP_TYPE_UPLOAD;
+	//頂点リソースの設定
+	D3D12_RESOURCE_DESC vertexResourceDesc{};
+	vertexResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+	vertexResourceDesc.Width = sizeof(Vector4) * 3;
+	//バッファの場合はこれらを1にする決まり
+	vertexResourceDesc.Height = 1;
+	vertexResourceDesc.DepthOrArraySize = 1;
+	vertexResourceDesc.MipLevels = 1;
+	vertexResourceDesc.SampleDesc.Count = 1;
+	//バッファの場合はこれにする決まり
 
 	//メインループ
 	while (true) {
