@@ -5,11 +5,11 @@ using namespace KamataEngine;
 
 class Particle {
 public:
-	void Initialize();
+	void Initialize(Model* model);
 
 	void Update();
 
-	void Draw();
+	void Draw(Camera& camera);
 
 private:
 	WorldTransform worldTransform_;

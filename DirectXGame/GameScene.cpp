@@ -7,14 +7,22 @@ GameScene::~GameScene() {
 	delete particle_;
 }
 
-void GameScene::Initialize() { 
+void GameScene::Initialize() {
 	modelParticle_ = Model::CreateSphere(4, 4);
 	camera_.Initialize();
 
 	particle_ = new Particle();
-	particle_->Initialize();
+	particle_->Initialize(modelParticle_);
 }
 
 void GameScene::Update() { particle_->Update(); }
 
-void GameScene::Draw() { particle_->Draw(); }
+void GameScene::Draw() {
+	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
+
+	Model::PreDraw(dxCommon->GetCommandList());
+
+	particle_->Draw(camera_);
+
+	Model::PostDraw();
+}

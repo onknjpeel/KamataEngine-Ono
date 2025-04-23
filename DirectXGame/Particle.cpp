@@ -1,7 +1,11 @@
 #include "Particle.h"
 
-void Particle::Initialize() {}
+void Particle::Initialize(Model* model) {
+	assert(model);
+	model_ = model;
+	worldTransform_.Initialize();
+}
 
-void Particle::Update() {}
+void Particle::Update() { worldTransform_.TransferMatrix(); }
 
-void Particle::Draw() {}
+void Particle::Draw(Camera& camera) { model_->Draw(worldTransform_, camera); }
