@@ -135,6 +135,30 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	vertexResourceDesc.MipLevels = 1;
 	vertexResourceDesc.SampleDesc.Count = 1;
 	//バッファの場合はこれにする決まり
+	vertexResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+	//実際に頂点リソースを生成する
+	ID3D12Resource* vertexResource = nullptr;
+	hr = dxCommon->GetDevice()->CreateCommittedResource(&uploadHeapProperties, D3D12_HEAP_FLAG_NONE, &vertexResourceDesc, 
+		D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&vertexResource));
+	assert(SUCCEEDED(hr));
+
+	//VertexBufferViewを作成する------------
+	D3D12_VERTEX_BUFFER_VIEW vertexBufferView{};
+	//リソースの先頭アドレスから使う
+	vertexBufferView.BufferLocation = vertexResource->GetGPUVirtualAddress();
+	//使用するリソースのサイズは頂点3つ分のサイズ
+	vertexBufferView.SizeInBytes = sizeof(Vector4) * 3;
+	//1つの頂点のサイズ
+	vertexBufferView.StrideInBytes = sizeof(Vector4);
+
+	//頂点リソースにデータを書き込む-------------
+	Vector4* vertexData = nullptr;
+	vertexResource->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
+	vertexData[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+	vertexData[1] = {0.0f, 0.5f, 0.0f, 1.0f};
+	vertexData[2] = {0.5f, -0.5f, 0.0f, 1.0f};
+	//頂点リソースのマップを解除する
+	vertexResource->Unmap(0, nullptr);
 
 	//メインループ
 	while (true) {
@@ -145,10 +169,30 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//描画開始
 	dxCommon->PreDraw();
 
+	//コマンドを積む
+	commandList->SetGraphicsRootSignature(rootSignature);
+	commandList->SetPipelineState(graphicsPipelineState);
+	commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
+	//トポロジの設定
+	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//頂点数、インデックス数、インデックスの開始位置、インデックスのオフセット
+	commandList->DrawInstanced(3, 1, 0, 0);
+
 	//描画終了
 	dxCommon->PostDraw();
 
 	}
+
+	//解放処理
+	vertexResource->Release();
+	graphicsPipelineState->Release();
+	signatureBlob->Release();
+	if (errorBlob) {
+		errorBlob->Release();
+	}
+	rootSignature->Release();
+	vsBlob->Release();
+	psBlob->Release();
 
 	//エンジンの終了処理
 	KamataEngine::Finalize();
