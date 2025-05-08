@@ -6,23 +6,23 @@ using namespace KamataEngine;
 
 class GameScene {
 public:
-
 	~GameScene();
 
-	//初期化
+	// 初期化
 	void Initialize();
 
-	//更新
+	// 更新
 	void Update();
 
-	//描画
+	// 描画
 	void Draw();
 
-private:
+	void ParticleBorn(Vector3 position);
 
+private:
 	Model* modelParticle_ = nullptr;
 
 	Camera camera_;
 
-	Particle* particle_ = nullptr;
+	std::list<Particle*> particles_;
 };
