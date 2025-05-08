@@ -10,35 +10,21 @@ std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
 	delete modelParticle_;
-	for (Particle* particle : particles_) {
-		delete particle;
-	}
+	delete modelEffect_;
 	particles_.clear();
 }
 
 void GameScene::Initialize() {
-	modelParticle_ = Model::CreateSphere(4, 4);
+	modelEffect_ = Model::CreateFromOBJ("diamond", false);
+
+	effect_ = new Effect();
+	effect_->Initialize(modelEffect_);
 
 	camera_.Initialize();
-
-	srand((unsigned)time(NULL));
 }
 
 void GameScene::Update() {
-	if (rand() % 20 == 0) {
-		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
-		ParticleBorn(position);
-	}
-	particles_.remove_if([](Particle* particle) {
-		if (particle->IsFinished()) {
-			delete particle;
-			return true;
-		}
-		return false;
-	});
-	for (Particle* particle : particles_) {
-		particle->Update();
-	}
+	effect_->Update();
 }
 
 void GameScene::Draw() {
@@ -46,9 +32,7 @@ void GameScene::Draw() {
 
 	Model::PreDraw(dxCommon->GetCommandList());
 
-	for (Particle* particle : particles_) {
-		particle->Draw(camera_);
-	};
+	effect_->Draw(camera_);
 
 	Model::PostDraw();
 }
