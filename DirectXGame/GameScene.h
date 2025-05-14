@@ -18,6 +18,8 @@ public:
 
 	void ParticleBorn(KamataEngine::Vector3 position);
 
+	void EffectBorn(KamataEngine::Vector3 position);
+
 private:
 	KamataEngine::Model* modelParticle_ = nullptr;
 
@@ -27,5 +29,5 @@ private:
 
 	KamataEngine::Model* modelEffect_ = nullptr;
 
-	Effect* effect_ = nullptr;
+	std::list<Effect*> effects_;
 };

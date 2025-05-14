@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <numbers>
 #include <random>
 
 using namespace KamataEngine;
@@ -11,20 +12,37 @@ std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
 GameScene::~GameScene() {
 	delete modelParticle_;
 	delete modelEffect_;
-	particles_.clear();
+	for (Effect* effect : effects_) {
+		delete effect;
+	}
+	effects_.clear();
 }
 
 void GameScene::Initialize() {
 	modelEffect_ = Model::CreateFromOBJ("diamond", false);
 
-	effect_ = new Effect();
-	effect_->Initialize(modelEffect_);
-
 	camera_.Initialize();
+
+	srand((unsigned)time(NULL));
 }
 
 void GameScene::Update() {
-	effect_->Update();
+	if (rand() % 20 == 0) {
+		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+		EffectBorn(position);
+	}
+
+	effects_.remove_if([](Effect* effect) {
+		if (effect->IsFinished()) {
+			delete effect;
+			return true;
+		}
+		return false;
+	});
+
+	for (Effect* effect : effects_) {
+		effect->Update();
+	}
 }
 
 void GameScene::Draw() {
@@ -32,7 +50,9 @@ void GameScene::Draw() {
 
 	Model::PreDraw(dxCommon->GetCommandList());
 
-	effect_->Draw(camera_);
+	for (Effect* effect : effects_) {
+		effect->Draw(camera_);
+	}
 
 	Model::PostDraw();
 }
@@ -49,5 +69,23 @@ void GameScene::ParticleBorn(Vector3 position) {
 
 		particle->Initialize(modelParticle_, position_, velocity);
 		particles_.push_back(particle);
+	}
+}
+
+void GameScene::EffectBorn(KamataEngine::Vector3 position) {
+	float pi = std::numbers::pi_v<float>;
+
+	float rad = std::clamp(std::abs(distribution(randomEngine)), 0.0f, 2.0f * pi);
+	
+	for (int i = 0; i < 10; i++) {
+		Effect* effect = new Effect();
+
+		Vector3 position_ = position;
+		Vector3 scale = {1.0f, std::abs(distribution(randomEngine)) / 5.0f, 1.0f};
+		Vector3 rotate = {0.0f, 0.0f, i * rad};
+
+		effect->Initialize(modelEffect_, scale, rotate);
+
+		effects_.push_back(effect);
 	}
 }
