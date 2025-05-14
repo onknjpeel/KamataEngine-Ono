@@ -3,7 +3,7 @@
 
 class Effect {
 public:
-	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate);
+	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate, KamataEngine::Vector3 position, KamataEngine::Vector3 color);
 
 	void Update();
 
@@ -25,4 +25,6 @@ private:
 	KamataEngine::ObjectColor objectColor_;
 
 	KamataEngine::Vector4 color_;
+
+	float beforeScale;
 };

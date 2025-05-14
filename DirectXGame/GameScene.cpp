@@ -73,18 +73,16 @@ void GameScene::ParticleBorn(Vector3 position) {
 }
 
 void GameScene::EffectBorn(KamataEngine::Vector3 position) {
-	float pi = std::numbers::pi_v<float>;
-
-	float rad = std::clamp(std::abs(distribution(randomEngine)), 0.0f, 2.0f * pi);
-	
+	Vector3 color = {distribution(randomEngine), distribution(randomEngine), distribution(randomEngine)};
+	Normalize(color);
 	for (int i = 0; i < 10; i++) {
 		Effect* effect = new Effect();
 
 		Vector3 position_ = position;
-		Vector3 scale = {1.0f, std::abs(distribution(randomEngine)) / 5.0f, 1.0f};
-		Vector3 rotate = {0.0f, 0.0f, i * rad};
+		Vector3 scale = {0.1f, distribution(randomEngine), 1.0f};
+		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine)};
 
-		effect->Initialize(modelEffect_, scale, rotate);
+		effect->Initialize(modelEffect_, scale, rotate, position,color);
 
 		effects_.push_back(effect);
 	}
