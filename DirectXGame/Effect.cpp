@@ -29,7 +29,9 @@ void Effect::Update() {
 		isFinished_ = true;
 	}
 
-	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration, 0.0f, 0.5f);
+	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration, 0.0f, 0.25f);
+
+	worldTransform_.rotation_.z += std::clamp(1.0f - counter_ / kDuration, 0.0f, 0.25f);
 
 	worldTransform_.UpdateMatrix();
 
