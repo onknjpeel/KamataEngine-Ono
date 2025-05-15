@@ -16,10 +16,15 @@ GameScene::~GameScene() {
 		delete effect;
 	}
 	effects_.clear();
+
+	Model2::StaticFinalize();
 }
 
 void GameScene::Initialize() {
-	modelEffect_ = Model::CreateFromOBJ("diamond", false);
+	Model2::StaticInitialize();
+
+	modelParticle_ = Model2::CreateSphere(1, 1);
+	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
 
 	camera_.Initialize();
 
@@ -48,13 +53,13 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	Model::PreDraw(dxCommon->GetCommandList());
+	Model2::PreDraw(dxCommon->GetCommandList());
 
 	for (Effect* effect : effects_) {
 		effect->Draw(camera_);
 	}
 
-	Model::PostDraw();
+	Model2::PostDraw();
 }
 
 void GameScene::ParticleBorn(Vector3 position) {

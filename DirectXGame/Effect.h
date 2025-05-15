@@ -1,9 +1,10 @@
 #pragma once
 #include <KamataEngine.h>
+#include "Model2.h"
 
 class Effect {
 public:
-	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate, KamataEngine::Vector3 position, KamataEngine::Vector3 color);
+	void Initialize(KamataEngine::Model2* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate, KamataEngine::Vector3 position, KamataEngine::Vector3 color);
 
 	void Update();
 
@@ -14,7 +15,7 @@ public:
 private:
 	KamataEngine::WorldTransform worldTransform_;
 
-	KamataEngine::Model* model_ = nullptr;
+	KamataEngine::Model2* model_ = nullptr;
 
 	bool isFinished_ = false;
 

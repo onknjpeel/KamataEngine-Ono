@@ -2,6 +2,7 @@
 #include "KamataEngine.h"
 #include "Particle.h"
 #include "Effect.h"
+#include "Model2.h"
 
 class GameScene {
 public:
@@ -21,13 +22,13 @@ public:
 	void EffectBorn(KamataEngine::Vector3 position);
 
 private:
-	KamataEngine::Model* modelParticle_ = nullptr;
+	KamataEngine::Model2* modelParticle_ = nullptr;
 
 	KamataEngine::Camera camera_;
 
 	std::list<Particle*> particles_;
 
-	KamataEngine::Model* modelEffect_ = nullptr;
+	KamataEngine::Model2* modelEffect_ = nullptr;
 
 	std::list<Effect*> effects_;
 };

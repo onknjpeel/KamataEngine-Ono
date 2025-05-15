@@ -1,9 +1,10 @@
 #pragma once
 #include <KamataEngine.h>
+#include "Model2.h"
 
 class Particle {
 public:
-	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 position, KamataEngine::Vector3 velocity);
+	void Initialize(KamataEngine::Model2* model, KamataEngine::Vector3 position, KamataEngine::Vector3 velocity);
 
 	void Update();
 
@@ -14,7 +15,7 @@ public:
 private:
 	KamataEngine::WorldTransform worldTransform_;
 
-	KamataEngine::Model* model_ = nullptr;
+	KamataEngine::Model2* model_ = nullptr;
 
 	KamataEngine::ObjectColor objectColor_;
 

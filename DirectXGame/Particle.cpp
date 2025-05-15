@@ -4,7 +4,7 @@
 using namespace KamataEngine;
 using namespace MathUtility;
 
-void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
+void Particle::Initialize(KamataEngine::Model2* model, Vector3 position, Vector3 velocity) {
 	assert(model);
 	model_ = model;
 

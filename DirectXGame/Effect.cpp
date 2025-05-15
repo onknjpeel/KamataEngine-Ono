@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace KamataEngine;
 
-void Effect::Initialize(KamataEngine::Model* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate, KamataEngine::Vector3 position, KamataEngine::Vector3 color) {
+void Effect::Initialize(KamataEngine::Model2* model, KamataEngine::Vector3 scale, KamataEngine::Vector3 rotate, KamataEngine::Vector3 position, KamataEngine::Vector3 color) {
 	assert(model);
 	model_ = model;
 
