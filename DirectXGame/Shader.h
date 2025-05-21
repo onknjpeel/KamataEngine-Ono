@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <d3d12.h>
+#include <string>
 
 class Shader {
 public:
@@ -13,6 +13,6 @@ public:
 
 	~Shader();
 
-	private:
+private:
 	ID3DBlob* blob_ = nullptr;
 };
