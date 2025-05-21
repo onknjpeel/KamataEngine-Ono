@@ -11,10 +11,15 @@ std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
 
 GameScene::~GameScene() {
 	delete modelParticle_;
+	for (Particle* particle : particles_) {
+		delete particle;
+	}
+	particles_.clear();
 	delete modelEffect_;
 	for (Effect* effect : effects_) {
 		delete effect;
 	}
+	delete modelSquare_;
 	effects_.clear();
 
 	Model2::StaticFinalize();
@@ -25,39 +30,24 @@ void GameScene::Initialize() {
 
 	modelParticle_ = Model2::CreateSphere(1, 1);
 	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
+	modelSquare_ = Model2::CreateSquare();
 
 	camera_.Initialize();
+	worldTransform_.Initialize();
+
+	worldTransform_.translation_ = {1.0f, 1.0f, 0.0f};
 
 	srand((unsigned)time(NULL));
 }
 
-void GameScene::Update() {
-	if (rand() % 20 == 0) {
-		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
-		EffectBorn(position);
-	}
-
-	effects_.remove_if([](Effect* effect) {
-		if (effect->IsFinished()) {
-			delete effect;
-			return true;
-		}
-		return false;
-	});
-
-	for (Effect* effect : effects_) {
-		effect->Update();
-	}
-}
+void GameScene::Update() { worldTransform_.UpdateMatrix(); }
 
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
 	Model2::PreDraw(dxCommon->GetCommandList());
 
-	for (Effect* effect : effects_) {
-		effect->Draw(camera_);
-	}
+	modelParticle_->Draw(worldTransform_,camera_);
 
 	Model2::PostDraw();
 }

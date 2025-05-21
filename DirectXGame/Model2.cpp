@@ -1,19 +1,19 @@
-//#include <3d\Model.h>
+// #include <3d\Model.h>
+#include "Model2.h"
 #include <3d\Camera.h>
-#include <base\DirectXCommon.h>
 #include <3d\Material.h>
-#include <math\MathUtility.h>
-#include <base\StringUtility.h>
-#include <base\TextureManager.h>
 #include <3d\WorldTransform.h>
 #include <algorithm>
+#include <base\DirectXCommon.h>
+#include <base\StringUtility.h>
+#include <base\TextureManager.h>
 #include <cassert>
 #include <d3dcompiler.h>
 #include <format>
 #include <fstream>
+#include <math\MathUtility.h>
 #include <numbers>
 #include <sstream>
-#include "Model2.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 
@@ -125,6 +125,45 @@ Model2* Model2::CreateSphere(uint32_t divisionVertial, uint32_t divisionHorizont
 			indices[startIndex + 5] = startIndexVertices + 3;
 		}
 	}
+
+	instance->InitializeFromVertices(vertices, indices);
+
+	return instance;
+}
+
+Model2* Model2::CreateSquare() {
+	Model2* instance = new Model2();
+	std::vector<Mesh::VertexPosNormalUv> vertices;
+	std::vector<uint32_t> indices;
+
+	const uint32_t kNumVertices = 4;
+	const uint32_t kNumIndices = 6;
+
+	vertices.resize(kNumVertices);
+	indices.resize(kNumIndices);
+
+	vertices[0].pos = {0.0f, 0.0f, 0.0f};
+	vertices[0].uv = {0.0f, 0.0f};
+	vertices[0].normal = {0.0f, 0.0f, -1.0f};
+
+	vertices[1].pos = {640.0f, 0.0f, 0.0f};
+	vertices[1].uv = {1.0f, 0.0f};
+	vertices[1].normal = {0.0f, 0.0f, -1.0f};
+
+	vertices[2].pos = {0.0f, 360.0f, 0.0f};
+	vertices[2].uv = {1.0f, 0.0f};
+	vertices[2].normal = {0.0f, 0.0f, -1.0f};
+
+	vertices[3].pos = {640.0f, 360.0f, 0.0f};
+	vertices[3].uv = {1.0f, 1.0f};
+	vertices[3].normal = {0.0f, 0.0f, -1.0f};
+
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 1;
+	indices[4] = 2;
+	indices[5] = 3;
 
 	instance->InitializeFromVertices(vertices, indices);
 
@@ -748,22 +787,19 @@ void ModelCommon2::InitializeGraphicsPipeline() {
 	blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
 
 	// 加算合成
-	//blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
-	//blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
-	//blenddesc.DestBlend = D3D12_BLEND_ONE;
+	// blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
+	// blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	// blenddesc.DestBlend = D3D12_BLEND_ONE;
 
-	//減算合成
-	//blenddesc.BlendOp = D3D12_BLEND_OP_REV_SUBTRACT;
-	//blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
-	//blenddesc.DestBlend = D3D12_BLEND_ONE
+	// 減算合成
+	// blenddesc.BlendOp = D3D12_BLEND_OP_REV_SUBTRACT;
+	// blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	// blenddesc.DestBlend = D3D12_BLEND_ONE
 
 	// 共通設定
 	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
 	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
 	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
-
-
-
 
 	// ブレンドステートの設定
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;

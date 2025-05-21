@@ -31,4 +31,8 @@ private:
 	KamataEngine::Model2* modelEffect_ = nullptr;
 
 	std::list<Effect*> effects_;
+
+	KamataEngine::Model2* modelSquare_ = nullptr;
+
+	KamataEngine::WorldTransform worldTransform_;
 };
