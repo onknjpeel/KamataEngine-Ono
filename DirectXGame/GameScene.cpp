@@ -35,8 +35,6 @@ void GameScene::Initialize() {
 	camera_.Initialize();
 	worldTransform_.Initialize();
 
-	worldTransform_.translation_ = {1.0f, 1.0f, 0.0f};
-
 	srand((unsigned)time(NULL));
 }
 
@@ -47,7 +45,7 @@ void GameScene::Draw() {
 
 	Model2::PreDraw(dxCommon->GetCommandList());
 
-	modelParticle_->Draw(worldTransform_,camera_);
+	modelSquare_->Draw(worldTransform_,camera_);
 
 	Model2::PostDraw();
 }

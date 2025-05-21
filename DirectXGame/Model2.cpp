@@ -142,28 +142,28 @@ Model2* Model2::CreateSquare() {
 	vertices.resize(kNumVertices);
 	indices.resize(kNumIndices);
 
-	vertices[0].pos = {0.0f, 0.0f, 0.0f};
-	vertices[0].uv = {0.0f, 0.0f};
+	vertices[0].pos = {0.0f, 360.0f, 0.0f};
+	vertices[0].uv = {0.0f, 1.0f};
 	vertices[0].normal = {0.0f, 0.0f, -1.0f};
 
-	vertices[1].pos = {640.0f, 0.0f, 0.0f};
-	vertices[1].uv = {1.0f, 0.0f};
+	vertices[1].pos = {0.0f, 0.0f, 0.0f};
+	vertices[1].uv = {0.0f, 0.0f};
 	vertices[1].normal = {0.0f, 0.0f, -1.0f};
 
-	vertices[2].pos = {0.0f, 360.0f, 0.0f};
-	vertices[2].uv = {1.0f, 0.0f};
+	vertices[2].pos = {640.0f, 360.0f, 0.0f};
+	vertices[2].uv = {1.0f, 1.0f};
 	vertices[2].normal = {0.0f, 0.0f, -1.0f};
 
-	vertices[3].pos = {640.0f, 360.0f, 0.0f};
-	vertices[3].uv = {1.0f, 1.0f};
+	vertices[3].pos = {640.0f, 0.0f, 0.0f};
+	vertices[3].uv = {1.0f, 0.0f};
 	vertices[3].normal = {0.0f, 0.0f, -1.0f};
 
 	indices[0] = 0;
 	indices[1] = 1;
 	indices[2] = 2;
 	indices[3] = 1;
-	indices[4] = 2;
-	indices[5] = 3;
+	indices[4] = 3;
+	indices[5] = 2;
 
 	instance->InitializeFromVertices(vertices, indices);
 
