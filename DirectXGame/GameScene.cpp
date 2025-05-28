@@ -27,8 +27,8 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	if (rand() % 20 == 0) {
-		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+	if (rand() % 15 == 0) {
+		Vector3 position = {distribution(randomEngine) * 20.0f, distribution(randomEngine) * 15.0f, 0};
 		EffectBorn(position);
 	}
 
