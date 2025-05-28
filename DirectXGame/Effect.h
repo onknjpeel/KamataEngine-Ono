@@ -20,7 +20,7 @@ private:
 
 	float counter_ = 0.0f;
 
-	const float kDuration = 0.5f;
+	const float kDuration = 0.75f;
 
 	KamataEngine::ObjectColor objectColor_;
 

@@ -27,8 +27,8 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	if (rand() % 15 == 0) {
-		Vector3 position = {distribution(randomEngine) * 20.0f, distribution(randomEngine) * 15.0f, distribution(randomEngine) * 10.0f};
+	if (rand() % 10 == 0) {
+		Vector3 position = {distribution(randomEngine) * 15.0f, distribution(randomEngine) * 10.0f, distribution(randomEngine) * 10.0f};
 		EffectBorn(position);
 	}
 
@@ -78,8 +78,8 @@ void GameScene::EffectBorn(KamataEngine::Vector3 position) {
 		Effect* effect = new Effect();
 
 		Vector3 position_ = position;
-		Vector3 scale = {0.1f, distribution(randomEngine), 1.0f};
-		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine) * 0.75f};
+		Vector3 scale = {500.0f, distribution(randomEngine) * 0.1f, 1.0f};
+		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine) * 0.8f};
 
 		effect->Initialize(modelEffect_, scale, rotate, position_, color);
 
