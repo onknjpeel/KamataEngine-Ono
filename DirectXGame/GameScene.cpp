@@ -79,7 +79,7 @@ void GameScene::EffectBorn(KamataEngine::Vector3 position) {
 
 		Vector3 position_ = position;
 		Vector3 scale = {0.1f, distribution(randomEngine), 1.0f};
-		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine)};
+		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine) * 0.75f};
 
 		effect->Initialize(modelEffect_, scale, rotate, position_, color);
 
