@@ -8,6 +8,7 @@ void Effect::Initialize(KamataEngine::Model* model, KamataEngine::Vector3 scale,
 
 	objectColor_.Initialize();
 	color_ = {color.x, color.y, color.z, 1};
+	preColor_ = color_;
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
@@ -31,11 +32,12 @@ void Effect::Update() {
 
 	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration, 0.0f, 0.25f);
 
-	worldTransform_.rotation_.z += std::clamp(1.0f - counter_ / kDuration, 0.0f, 0.25f);
-
 	worldTransform_.UpdateMatrix();
 
-	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, 1.0f);
+	color_.x = std::clamp(1.0f - counter_ / kDuration, 0.0f, preColor_.x);
+	color_.y = std::clamp(1.0f - counter_ / kDuration, 0.0f, preColor_.y);
+	color_.z = std::clamp(1.0f - counter_ / kDuration, 0.0f, preColor_.z);
+	color_.w = std::clamp(1.0f - counter_ / kDuration, 0.0f, preColor_.w);
 
 	objectColor_.SetColor(color_);
 }

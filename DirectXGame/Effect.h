@@ -20,11 +20,13 @@ private:
 
 	float counter_ = 0.0f;
 
-	const float kDuration = 1.0f;
+	const float kDuration = 0.5f;
 
 	KamataEngine::ObjectColor objectColor_;
 
 	KamataEngine::Vector4 color_;
+
+	KamataEngine::Vector4 preColor_;
 
 	float beforeScale;
 };

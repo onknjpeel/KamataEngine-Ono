@@ -73,8 +73,7 @@ void GameScene::ParticleBorn(Vector3 position) {
 }
 
 void GameScene::EffectBorn(KamataEngine::Vector3 position) {
-	Vector3 color = {distribution(randomEngine), distribution(randomEngine), distribution(randomEngine)};
-	Normalize(color);
+	Vector3 color = {1, 1, 1};
 	for (int i = 0; i < 10; i++) {
 		Effect* effect = new Effect();
 
@@ -82,7 +81,7 @@ void GameScene::EffectBorn(KamataEngine::Vector3 position) {
 		Vector3 scale = {0.1f, distribution(randomEngine), 1.0f};
 		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine)};
 
-		effect->Initialize(modelEffect_, scale, rotate, position,color);
+		effect->Initialize(modelEffect_, scale, rotate, position_, color);
 
 		effects_.push_back(effect);
 	}
