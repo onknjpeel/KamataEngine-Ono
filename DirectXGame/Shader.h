@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
 #include <d3d12.h>
 #include <d3dcompiler.h>
 #include <dxcapi.h>
+#include <string>
 
 class Shader {
 public:
@@ -17,7 +17,7 @@ public:
 
 	~Shader();
 
-	private:
+private:
 	ID3DBlob* blob_ = nullptr;
 
 	IDxcBlob* dxcBlob_ = nullptr;

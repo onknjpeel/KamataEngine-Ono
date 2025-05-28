@@ -1,7 +1,7 @@
 #include "Shader.h"
-#include <d3dcompiler.h>
-#include <cassert>
 #include "MiscUtility.h"
+#include <cassert>
+#include <d3dcompiler.h>
 #include <dxcapi.h>
 
 #pragma comment(lib, "dxcompiler.lib")
@@ -13,13 +13,7 @@ void Shader::Load(const std::wstring& filePath, const std::wstring& shaderModel)
 	std::string mbShaderModel = ConvertString(shaderModel);
 
 	HRESULT hr =
-	    D3DCompileFromFile(
-			filePath.c_str(),
-			nullptr,
-			D3D_COMPILE_STANDARD_FILE_INCLUDE,
-			"main", mbShaderModel.c_str(),
-			D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
-			0, &shaderBlob, &errorBlob);
+	    D3DCompileFromFile(filePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", mbShaderModel.c_str(), D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &shaderBlob, &errorBlob);
 
 	if (FAILED(hr)) {
 		if (errorBlob) {
@@ -62,26 +56,10 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 	shaderSourceBuffer.Size = shaderSource->GetBufferSize();
 	shaderSourceBuffer.Encoding = DXC_CP_UTF8;
 
-	LPCWSTR arguments[] = {
-		filePath.c_str(),
-		L"-E", 
-		L"main", 
-		L"-T",
-		shaderModel.c_str(),
-		L"-Zi",
-		L"-Qembed_debug",
-		L"-Od",
-		L"-Zpr"
-	};
+	LPCWSTR arguments[] = {filePath.c_str(), L"-E", L"main", L"-T", shaderModel.c_str(), L"-Zi", L"-Qembed_debug", L"-Od", L"-Zpr"};
 
 	IDxcResult* shaderResult = nullptr;
-	hr = dxcCompiler->Compile(
-		&shaderSourceBuffer, 
-		arguments, 
-		_countof(arguments),
-		includeHandler,
-		IID_PPV_ARGS(&shaderResult)
-	);
+	hr = dxcCompiler->Compile(&shaderSourceBuffer, arguments, _countof(arguments), includeHandler, IID_PPV_ARGS(&shaderResult));
 
 	assert(SUCCEEDED(hr));
 
