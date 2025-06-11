@@ -2,7 +2,7 @@
 #include "KamataEngine.h"
 
 #include <cassert>
-#include <d3dx12.h>
+#include <d3d12.h>
 
 using namespace KamataEngine;
 
