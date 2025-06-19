@@ -131,42 +131,54 @@ Model2* Model2::CreateSphere(uint32_t divisionVertial, uint32_t divisionHorizont
 	return instance;
 }
 
-Model2* Model2::CreateSquare() {
+Model2* Model2::CreateSquare(int num) {
 	Model2* instance = new Model2();
 	std::vector<Mesh::VertexPosNormalUv> vertices;
 	std::vector<uint32_t> indices;
 
-	const uint32_t kNumVertices = 4;
-	const uint32_t kNumIndices = 6;
+	const float width = 10.0f; // 各正方形の幅（-10～10）
 
-	vertices.resize(kNumVertices);
-	indices.resize(kNumIndices);
+	vertices.reserve(4 * num);
+	indices.reserve(6 * num);
 
-	vertices[0].pos = {-10, 10, 0.0f};
-	vertices[0].uv = {0.0f, 1.0f};
-	vertices[0].normal = {0.0f, 0.0f, -1.0f};
+	for (int i = 0; i < num; ++i) {
+		// 画面中心を基準に左右対称に配置
+		float centerX = (i - (num - 1) / 2.0f) * width;
+		uint32_t baseIndex = i * 4;
 
-	vertices[1].pos = {10, 10, 0.0f};
-	vertices[1].uv = {0.0f, 0.0f};
-	vertices[1].normal = {0.0f, 0.0f, -1.0f};
+		Mesh::VertexPosNormalUv v;
 
-	vertices[2].pos = {-10, -10, 0.0f};
-	vertices[2].uv = {1.0f, 1.0f};
-	vertices[2].normal = {0.0f, 0.0f, -1.0f};
+		// 左上
+		v.pos = {centerX - 5, 5, 0.0f};
+		v.uv = {0.0f, 1.0f};
+		v.normal = {0.0f, 0.0f, -1.0f};
+		vertices.push_back(v);
 
-	vertices[3].pos = {10, -10, 0.0f};
-	vertices[3].uv = {1.0f, 0.0f};
-	vertices[3].normal = {0.0f, 0.0f, -1.0f};
+		// 右上
+		v.pos = {centerX + 5, 5, 0.0f};
+		v.uv = {0.0f, 0.0f};
+		vertices.push_back(v);
 
-	indices[0] = 0;
-	indices[1] = 1;
-	indices[2] = 2;
-	indices[3] = 1;
-	indices[4] = 3;
-	indices[5] = 2;
+		// 左下
+		v.pos = {centerX - 5, -5, 0.0f};
+		v.uv = {1.0f, 1.0f};
+		vertices.push_back(v);
+
+		// 右下
+		v.pos = {centerX + 5, -5, 0.0f};
+		v.uv = {1.0f, 0.0f};
+		vertices.push_back(v);
+
+		// インデックス（三角形2枚）
+		indices.push_back(baseIndex + 0);
+		indices.push_back(baseIndex + 1);
+		indices.push_back(baseIndex + 2);
+		indices.push_back(baseIndex + 1);
+		indices.push_back(baseIndex + 3);
+		indices.push_back(baseIndex + 2);
+	}
 
 	instance->InitializeFromVertices(vertices, indices);
-
 	return instance;
 }
 

@@ -30,7 +30,7 @@ void GameScene::Initialize() {
 
 	modelParticle_ = Model2::CreateSphere(1, 1);
 	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
-	modelSquare_ = Model2::CreateSquare();
+	modelSquare_ = Model2::CreateSquare(5);
 
 	camera_.Initialize();
 	worldTransform_.Initialize();
