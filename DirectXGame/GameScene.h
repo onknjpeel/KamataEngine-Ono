@@ -41,8 +41,8 @@ private:
 	Vector2 titlePos;
 
 	Sprite* titleRogo_ = nullptr;
-	UINT titleGH_ = TextureManager::Load("./Resources/Title/titleRogo.png");
+	uint32_t titleGH_ = 0;
 
 	Sprite* pushKeyRogo_ = nullptr;
-	UINT pushKeyGH_ = TextureManager::Load("./Resources/Title/keyRogo.png");
+	uint32_t pushKeyGH_ = 0;
 };

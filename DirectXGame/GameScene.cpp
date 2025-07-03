@@ -22,6 +22,10 @@ GameScene::~GameScene() {
 	delete modelRing_;
 	effects_.clear();
 
+	delete titleRogo_;
+
+	delete pushKeyRogo_;
+
 	Model2::StaticFinalize();
 }
 
@@ -38,17 +42,17 @@ void GameScene::Initialize() {
 	srand((unsigned)time(NULL));
 
 	titlePos = {0.0f, -100.0f};
-
+	titleGH_ = TextureManager::Load("./Resources/Title/titleRogo.png");
 	titleRogo_ = Sprite::Create(titleGH_, titlePos, {1, 1, 1, 1}, {640.0f, 360.0f}, 0, 0);
+	
+	pushKeyGH_ = TextureManager::Load("./Resources/Title/keyRogo.png");
 	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f,0.0f}, {1, 1, 1, 1}, {0.0f, 0.0f}, 0, 0);
 }
 
 void GameScene::Update() { 
-	if (titlePos.y <= 0.0f) {
+	if (titlePos.y < 0.0f) {
 		titlePos.y += 0.5f;
-		titleRogo_->SetPosition(titlePos);
 	}
-
 	worldTransform_.UpdateMatrix(); }
 
 void GameScene::Draw() {
