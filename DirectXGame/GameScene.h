@@ -32,7 +32,7 @@ private:
 
 	std::list<Effect*> effects_;
 
-	KamataEngine::Model2* modelSquare_ = nullptr;
+	KamataEngine::Model2* modelRing_ = nullptr;
 
 	KamataEngine::WorldTransform worldTransform_;
 };

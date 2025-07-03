@@ -182,6 +182,61 @@ Model2* Model2::CreateSquare(int num) {
 	return instance;
 }
 
+Model2* Model2::CreateRing(int num) {
+	Model2* instance = new Model2();
+	std::vector<Mesh::VertexPosNormalUv> vertices;
+	std::vector<uint32_t> indices;
+
+	const uint32_t kRingDivide = static_cast<uint32_t>(num); // num を使用
+	const float kOuterRadius = 10.0f;
+	const float kInnerRadius = 5.0f;
+	const float radianPerDivide = 2.0f * std::numbers::pi_v<float> / float(kRingDivide);
+
+	vertices.reserve(4 * kRingDivide);
+	indices.reserve(6 * kRingDivide);
+
+	for (uint32_t index = 0; index < kRingDivide; ++index) {
+		float angle = index * radianPerDivide;
+		float angleNext = ((index + 1) % kRingDivide) * radianPerDivide;
+
+		float sin0 = std::sin(angle);
+		float cos0 = std::cos(angle);
+		float sin1 = std::sin(angleNext);
+		float cos1 = std::cos(angleNext);
+
+		float u = float(index) / float(kRingDivide);
+		float uNext = float(index + 1) / float(kRingDivide);
+
+		uint32_t baseIndex = index * 4;
+
+		Mesh::VertexPosNormalUv v;
+		v.normal = {0.0f, 0.0f, 1.0f};
+
+		v.pos = {-sin0 * kOuterRadius, cos0 * kOuterRadius, 0.0f};
+		v.uv = {u, 0.0f};
+		vertices.push_back(v);
+		v.pos = {-sin1 * kOuterRadius, cos1 * kOuterRadius, 0.0f};
+		v.uv = {uNext, 0.0f};
+		vertices.push_back(v);
+		v.pos = {-sin0 * kInnerRadius, cos0 * kInnerRadius, 0.0f};
+		v.uv = {u, 1.0f};
+		vertices.push_back(v);
+		v.pos = {-sin1 * kInnerRadius, cos1 * kInnerRadius, 0.0f};
+		v.uv = {uNext, 1.0f};
+		vertices.push_back(v);
+
+		indices.push_back(baseIndex + 0);
+		indices.push_back(baseIndex + 2);
+		indices.push_back(baseIndex + 1);
+		indices.push_back(baseIndex + 1);
+		indices.push_back(baseIndex + 2);
+		indices.push_back(baseIndex + 3);
+	}
+
+	instance->InitializeFromVertices(vertices, indices);
+	return instance;
+}
+
 void Model2::PreDraw(ID3D12GraphicsCommandList* commandList) { ModelCommon2::GetInstance()->PreDraw(commandList); }
 
 void Model2::PostDraw() { ModelCommon2::GetInstance()->PostDraw(); }
