@@ -30,7 +30,7 @@ void GameScene::Initialize() {
 
 	modelParticle_ = Model2::CreateSphere(1, 1);
 	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
-	modelRing_ = Model2::CreateRing(32);
+	modelRing_ = Model2::CreateRing(8);
 
 	camera_.Initialize();
 	worldTransform_.Initialize();
@@ -45,7 +45,7 @@ void GameScene::Draw() {
 
 	Model2::PreDraw(dxCommon->GetCommandList());
 
-	modelRing_->Draw(worldTransform_,camera_);
+	modelRing_->Draw(worldTransform_,camera_,textureHandle_);
 
 	Model2::PostDraw();
 }

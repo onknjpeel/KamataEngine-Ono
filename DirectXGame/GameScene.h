@@ -4,6 +4,8 @@
 #include "Effect.h"
 #include "Model2.h"
 
+using namespace KamataEngine;
+
 class GameScene {
 public:
 	~GameScene();
@@ -35,4 +37,6 @@ private:
 	KamataEngine::Model2* modelRing_ = nullptr;
 
 	KamataEngine::WorldTransform worldTransform_;
+
+	uint32_t textureHandle_ = TextureManager::Load("./Resources/uvChecker.png");
 };
