@@ -41,19 +41,31 @@ void GameScene::Initialize() {
 
 	srand((unsigned)time(NULL));
 
-	titlePos = {0.0f, -100.0f};
+	titlePos = {0.0f, -300.0f};
 	titleGH_ = TextureManager::Load("./Resources/Title/titleRogo.png");
-	titleRogo_ = Sprite::Create(titleGH_, titlePos, {1, 1, 1, 1}, {640.0f, 360.0f}, 0, 0);
-	
+	titleRogo_ = Sprite::Create(titleGH_, titlePos);
+
 	pushKeyGH_ = TextureManager::Load("./Resources/Title/keyRogo.png");
-	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f,0.0f}, {1, 1, 1, 1}, {0.0f, 0.0f}, 0, 0);
+	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f, 0.0f});
+
+	timer = 0;
 }
 
-void GameScene::Update() { 
-	if (titlePos.y < 0.0f) {
-		titlePos.y += 0.5f;
+void GameScene::Update() {
+	Vector2 pos = titleRogo_->GetPosition();
+	if (pos.y < 0.0f) {
+		pos.y += 2.0f;
 	}
-	worldTransform_.UpdateMatrix(); }
+	titleRogo_->SetPosition(pos);
+
+	if (Input::GetInstance()->TriggerKey(DIK_R)) {
+		pos = titlePos;
+		titleRogo_->SetPosition(pos);
+		timer = 0;
+	}
+
+	worldTransform_.UpdateMatrix();
+}
 
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
@@ -64,7 +76,10 @@ void GameScene::Draw() {
 
 	Sprite::PreDraw(dxCommon->GetCommandList());
 	titleRogo_->Draw();
-	pushKeyRogo_->Draw();
+	timer++;
+	if (timer % 60 >= 30) {
+		pushKeyRogo_->Draw();
+	}
 	Sprite::PostDraw();
 }
 
@@ -93,7 +108,7 @@ void GameScene::EffectBorn(KamataEngine::Vector3 position) {
 		Vector3 scale = {0.1f, distribution(randomEngine), 1.0f};
 		Vector3 rotate = {0.0f, 0.0f, distribution(randomEngine)};
 
-		effect->Initialize(modelEffect_, scale, rotate, position,color);
+		effect->Initialize(modelEffect_, scale, rotate, position, color);
 
 		effects_.push_back(effect);
 	}

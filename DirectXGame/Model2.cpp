@@ -210,7 +210,7 @@ Model2* Model2::CreateRing(int num) {
 		uint32_t baseIndex = index * 4;
 
 		Mesh::VertexPosNormalUv v;
-		v.normal = {0.0f, 0.0f, 1.0f};
+		v.normal = {0.0f, 0.0f, -1.0f};
 
 		v.pos = {-sin0 * kOuterRadius, cos0 * kOuterRadius, 0.0f};
 		v.uv = {u, 0.0f};

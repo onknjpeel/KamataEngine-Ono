@@ -1,8 +1,8 @@
 #pragma once
-#include "KamataEngine.h"
-#include "Particle.h"
 #include "Effect.h"
+#include "KamataEngine.h"
 #include "Model2.h"
+#include "Particle.h"
 
 using namespace KamataEngine;
 
@@ -45,4 +45,6 @@ private:
 
 	Sprite* pushKeyRogo_ = nullptr;
 	uint32_t pushKeyGH_ = 0;
+
+	int timer;
 };
