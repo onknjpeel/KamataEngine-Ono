@@ -4,6 +4,8 @@
 #include "Effect.h"
 #include "Model2.h"
 
+using namespace KamataEngine;
+
 class GameScene {
 public:
 	~GameScene();
@@ -22,17 +24,25 @@ public:
 	void EffectBorn(KamataEngine::Vector3 position);
 
 private:
-	KamataEngine::Model2* modelParticle_ = nullptr;
+	Model2* modelParticle_ = nullptr;
 
-	KamataEngine::Camera camera_;
+	Camera camera_;
 
 	std::list<Particle*> particles_;
 
-	KamataEngine::Model2* modelEffect_ = nullptr;
+	Model2* modelEffect_ = nullptr;
 
 	std::list<Effect*> effects_;
 
-	KamataEngine::Model2* modelRing_ = nullptr;
+	Model2* modelRing_ = nullptr;
 
-	KamataEngine::WorldTransform worldTransform_;
+	WorldTransform worldTransform_;
+
+	Vector2 titlePos;
+
+	Sprite* titleRogo_ = nullptr;
+	UINT titleGH_ = TextureManager::Load("./Resources/Title/titleRogo.png");
+
+	Sprite* pushKeyRogo_ = nullptr;
+	UINT pushKeyGH_ = TextureManager::Load("./Resources/Title/keyRogo.png");
 };

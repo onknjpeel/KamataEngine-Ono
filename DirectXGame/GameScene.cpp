@@ -36,18 +36,32 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 
 	srand((unsigned)time(NULL));
+
+	titlePos = {0.0f, -100.0f};
+
+	titleRogo_ = Sprite::Create(titleGH_, titlePos, {1, 1, 1, 1}, {640.0f, 360.0f}, 0, 0);
+	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f,0.0f}, {1, 1, 1, 1}, {0.0f, 0.0f}, 0, 0);
 }
 
-void GameScene::Update() { worldTransform_.UpdateMatrix(); }
+void GameScene::Update() { 
+	if (titlePos.y <= 0.0f) {
+		titlePos.y += 0.5f;
+		titleRogo_->SetPosition(titlePos);
+	}
+
+	worldTransform_.UpdateMatrix(); }
 
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
 	Model2::PreDraw(dxCommon->GetCommandList());
 
-	modelRing_->Draw(worldTransform_,camera_);
-
 	Model2::PostDraw();
+
+	Sprite::PreDraw(dxCommon->GetCommandList());
+	titleRogo_->Draw();
+	pushKeyRogo_->Draw();
+	Sprite::PostDraw();
 }
 
 void GameScene::ParticleBorn(Vector3 position) {
