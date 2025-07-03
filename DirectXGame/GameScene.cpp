@@ -26,6 +26,8 @@ GameScene::~GameScene() {
 
 	delete pushKeyRogo_;
 
+	delete stage_;
+
 	Model2::StaticFinalize();
 }
 
@@ -49,20 +51,13 @@ void GameScene::Initialize() {
 	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f, 0.0f});
 
 	timer = 0;
+
+	stage_ = new Stage();
+	stage_->Initialize();
 }
 
 void GameScene::Update() {
-	Vector2 pos = titleRogo_->GetPosition();
-	if (pos.y < 0.0f) {
-		pos.y += 2.0f;
-	}
-	titleRogo_->SetPosition(pos);
-
-	if (Input::GetInstance()->TriggerKey(DIK_R)) {
-		pos = titlePos;
-		titleRogo_->SetPosition(pos);
-		timer = 0;
-	}
+	stage_->Update();
 
 	worldTransform_.UpdateMatrix();
 }
@@ -75,12 +70,10 @@ void GameScene::Draw() {
 	Model2::PostDraw();
 
 	Sprite::PreDraw(dxCommon->GetCommandList());
-	titleRogo_->Draw();
-	timer++;
-	if (timer % 60 >= 30) {
-		pushKeyRogo_->Draw();
-	}
+	
 	Sprite::PostDraw();
+
+	stage_->Draw();
 }
 
 void GameScene::ParticleBorn(Vector3 position) {

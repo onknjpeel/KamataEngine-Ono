@@ -3,6 +3,7 @@
 #include "KamataEngine.h"
 #include "Model2.h"
 #include "Particle.h"
+#include "Stage.h"
 
 using namespace KamataEngine;
 
@@ -47,4 +48,6 @@ private:
 	uint32_t pushKeyGH_ = 0;
 
 	int timer;
+
+	Stage* stage_ = nullptr;
 };
