@@ -28,6 +28,8 @@ GameScene::~GameScene() {
 
 	delete stage_;
 
+	delete player_;
+
 	Model2::StaticFinalize();
 }
 
@@ -54,10 +56,15 @@ void GameScene::Initialize() {
 
 	stage_ = new Stage();
 	stage_->Initialize();
+
+	player_ = new Player();
+	player_->Initialize();
 }
 
 void GameScene::Update() {
 	stage_->Update();
+
+	player_->Update();
 
 	worldTransform_.UpdateMatrix();
 }
@@ -65,15 +72,23 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
+	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	stage_->Draw();
+
+	Sprite::PostDraw();
+
+	dxCommon->ClearDepthBuffer();
+
 	Model2::PreDraw(dxCommon->GetCommandList());
+
+	player_->Draw(camera_);
 
 	Model2::PostDraw();
 
 	Sprite::PreDraw(dxCommon->GetCommandList());
-	
-	Sprite::PostDraw();
 
-	stage_->Draw();
+	Sprite::PostDraw();
 }
 
 void GameScene::ParticleBorn(Vector3 position) {

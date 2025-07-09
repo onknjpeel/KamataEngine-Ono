@@ -4,6 +4,7 @@
 #include "Model2.h"
 #include "Particle.h"
 #include "Stage.h"
+#include "Player.h"
 
 using namespace KamataEngine;
 
@@ -50,4 +51,6 @@ private:
 	int timer;
 
 	Stage* stage_ = nullptr;
+
+	Player* player_ = nullptr;
 };

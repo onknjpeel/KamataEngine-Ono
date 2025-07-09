@@ -32,16 +32,10 @@ void Stage::Update() {
 }
 
 void Stage::Draw() {
-	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
-
-	Sprite::PreDraw(dxCommon->GetCommandList());
-
 	if (frontPos_.x <= 1280) {
 		front_->Draw();
 	}
 	if (backPos_.x <= 1280) {
 		back_->Draw();
 	}
-
-	Sprite::PostDraw();
 }
