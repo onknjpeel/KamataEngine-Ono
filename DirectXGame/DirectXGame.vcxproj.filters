@@ -16,6 +16,42 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="シェーダー ファイル\BoxFilter">
+      <UniqueIdentifier>{5afe701c-f31c-40dc-8d2a-d5d07dd2728c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\RadialBlur">
+      <UniqueIdentifier>{82a6982c-9d72-42e2-95d4-d921351c9135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Obj">
+      <UniqueIdentifier>{6acc7f21-051d-46eb-a658-b9cbeac95ad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Primitive">
+      <UniqueIdentifier>{332f2f6f-ef30-4cc6-a50b-fde133ee2872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Shape">
+      <UniqueIdentifier>{c3c015df-bb82-444c-b074-f547bd0f7850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Sprite">
+      <UniqueIdentifier>{7b72fcc0-483c-41d0-8774-494ef7cee108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Test">
+      <UniqueIdentifier>{237bc8da-283c-426f-b5b1-b070e1b787cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Terrain">
+      <UniqueIdentifier>{4450c5a7-33a6-493a-9b98-29b050e7cc15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\CopyImage">
+      <UniqueIdentifier>{a98743ab-c39c-4129-9d1c-54282a476a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\GaussianFilter">
+      <UniqueIdentifier>{95d72cd3-6dd1-4b37-ad09-8676c35970fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\LuminanceBasedOutline">
+      <UniqueIdentifier>{6fc353b2-351c-4d7a-90e0-d8bf18a8298d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー ファイル\Vignette">
+      <UniqueIdentifier>{7a9ee308-e691-40f7-8912-0fe464b5608c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,60 +80,116 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\shaders\SpritePS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\RadialBlur.PS.hlsl">
+      <Filter>シェーダー ファイル\RadialBlur</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\SpriteVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\RadialBlur.VS.hlsl">
+      <Filter>シェーダー ファイル\RadialBlur</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\ShapeVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\BoxFilter.PS.hlsl">
+      <Filter>シェーダー ファイル\BoxFilter</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\ShapePS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\BoxFilter.VS.hlsl">
+      <Filter>シェーダー ファイル\BoxFilter</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\ObjPS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Obj</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\ObjVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Obj</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\PrimitivePS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Primitive</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\PrimitiveVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Primitive</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\ShapePS.hlsl">
+      <Filter>シェーダー ファイル\Shape</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\TerrainVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\ShapeVS.hlsl">
+      <Filter>シェーダー ファイル\Shape</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\TestVS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+    <FxCompile Include="Resources\shaders\SpriteVS.hlsl">
+      <Filter>シェーダー ファイル\Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpritePS.hlsl">
+      <Filter>シェーダー ファイル\Sprite</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\TestPS.hlsl">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Test</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\TestVS.hlsl">
+      <Filter>シェーダー ファイル\Test</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\TerrainVS.hlsl">
+      <Filter>シェーダー ファイル\Terrain</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
+      <Filter>シェーダー ファイル\Terrain</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\CopyImage.PS.hlsl">
+      <Filter>シェーダー ファイル\CopyImage</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\CopyImage.VS.hlsl">
+      <Filter>シェーダー ファイル\CopyImage</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\GaussianFilter.PS.hlsl">
+      <Filter>シェーダー ファイル\GaussianFilter</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\GaussianFilter.VS.hlsl">
+      <Filter>シェーダー ファイル\GaussianFilter</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Vignette.PS.hlsl">
+      <Filter>シェーダー ファイル\Vignette</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Vignette.VS.hlsl">
+      <Filter>シェーダー ファイル\Vignette</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LuminanceBasedOutline.PS.hlsl">
+      <Filter>シェーダー ファイル\LuminanceBasedOutline</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LuminanceBasedOutline.VS.hlsl">
+      <Filter>シェーダー ファイル\LuminanceBasedOutline</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\shaders\Sprite.hlsli">
-      <Filter>シェーダー ファイル</Filter>
+    <None Include="Resources\shaders\RadialBlur.hlsli">
+      <Filter>シェーダー ファイル\RadialBlur</Filter>
     </None>
-    <None Include="Resources\shaders\Shape.hlsli">
-      <Filter>シェーダー ファイル</Filter>
+    <None Include="Resources\shaders\BoxFilter.hlsli">
+      <Filter>シェーダー ファイル\BoxFilter</Filter>
     </None>
     <None Include="Resources\shaders\Obj.hlsli">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Obj</Filter>
     </None>
     <None Include="Resources\shaders\Primitive.hlsli">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Primitive</Filter>
+    </None>
+    <None Include="Resources\shaders\Shape.hlsli">
+      <Filter>シェーダー ファイル\Shape</Filter>
+    </None>
+    <None Include="Resources\shaders\Sprite.hlsli">
+      <Filter>シェーダー ファイル\Sprite</Filter>
+    </None>
+    <None Include="Resources\shaders\Test.hlsli">
+      <Filter>シェーダー ファイル\Test</Filter>
     </None>
     <None Include="Resources\shaders\Terrain.hlsli">
-      <Filter>シェーダー ファイル</Filter>
+      <Filter>シェーダー ファイル\Terrain</Filter>
     </None>
-    <None Include="Resources\shaders\Test.hlsli" />
+    <None Include="Resources\shaders\CopyImage.hlsli">
+      <Filter>シェーダー ファイル\CopyImage</Filter>
+    </None>
+    <None Include="Resources\shaders\GaussianFilter.hlsli">
+      <Filter>シェーダー ファイル\GaussianFilter</Filter>
+    </None>
+    <None Include="Resources\shaders\Vignette.hlsli">
+      <Filter>シェーダー ファイル\Vignette</Filter>
+    </None>
+    <None Include="Resources\shaders\LuminanceBasedOutline.hlsli">
+      <Filter>シェーダー ファイル\LuminanceBasedOutline</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
