@@ -5,6 +5,7 @@
 #include "Particle.h"
 #include "Stage.h"
 #include "Player.h"
+#include "Graph.h"
 
 using namespace KamataEngine;
 
@@ -54,4 +55,7 @@ private:
 
 	Player* player_ = nullptr;
 	Model2* modelPlayer_ = nullptr;
+
+	Graph* graph1_ = nullptr;
+	Graph* graph2_ = nullptr;
 };

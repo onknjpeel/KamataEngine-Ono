@@ -31,6 +31,8 @@ GameScene::~GameScene() {
 	delete player_;
 	delete modelPlayer_;
 
+	delete graph1_;
+
 	Model2::StaticFinalize();
 }
 
@@ -61,7 +63,15 @@ void GameScene::Initialize() {
 
 	player_ = new Player();
 	Vector3 InitPos = {0, 0, 0};
-	player_->Initialize(modelPlayer_,InitPos);
+	player_->Initialize(modelPlayer_, InitPos);
+
+	graph1_ = new Graph();
+	Vector4 color1 = {1, 0, 0, 0.5f};
+	graph1_->Initialize(color1, 0);
+
+	graph2_ = new Graph();
+	Vector4 color2 = {0, 1, 0, 0.5f};
+	graph2_->Initialize(color2, 1);
 }
 
 void GameScene::Update() {
@@ -69,13 +79,16 @@ void GameScene::Update() {
 
 	player_->Update();
 
+	graph1_->Update();
+	graph2_->Update();
+
 	worldTransform_.UpdateMatrix();
 }
 
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
-	//背景
+	// 背景
 	Sprite::PreDraw(dxCommon->GetCommandList());
 
 	stage_->Draw();
@@ -84,15 +97,18 @@ void GameScene::Draw() {
 
 	dxCommon->ClearDepthBuffer();
 
-	//3Dモデル
+	// 3Dモデル
 	Model2::PreDraw(dxCommon->GetCommandList());
 
 	player_->Draw(camera_);
 
 	Model2::PostDraw();
 
-	//前景
+	// 前景
 	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	graph1_->Draw();
+	graph2_->Draw();
 
 	Sprite::PostDraw();
 }
