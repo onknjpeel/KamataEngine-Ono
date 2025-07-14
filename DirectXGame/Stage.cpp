@@ -17,8 +17,8 @@ void Stage::Initialize() {
 }
 
 void Stage::Update() {
-	frontPos_.x -= 5.0f;
-	backPos_.x -= 5.0f;
+	frontPos_.x -= 2.0f;
+	backPos_.x -= 2.0f;
 
 	if (frontPos_.x <= -1280.0f) {
 		frontPos_.x += 2560.0f;

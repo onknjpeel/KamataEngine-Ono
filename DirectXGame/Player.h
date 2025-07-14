@@ -6,7 +6,7 @@ using namespace KamataEngine;
 
 class Player {
 public:
-	void Initialize();
+	void Initialize(Model2* model, Vector3 position);
 
 	void Update();
 

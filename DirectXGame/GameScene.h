@@ -53,4 +53,5 @@ private:
 	Stage* stage_ = nullptr;
 
 	Player* player_ = nullptr;
+	Model2* modelPlayer_ = nullptr;
 };

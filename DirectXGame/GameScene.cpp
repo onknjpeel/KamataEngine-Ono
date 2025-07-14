@@ -29,6 +29,7 @@ GameScene::~GameScene() {
 	delete stage_;
 
 	delete player_;
+	delete modelPlayer_;
 
 	Model2::StaticFinalize();
 }
@@ -39,6 +40,7 @@ void GameScene::Initialize() {
 	modelParticle_ = Model2::CreateSphere(1, 1);
 	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
 	modelRing_ = Model2::CreateRing(32);
+	modelPlayer_ = Model2::CreateFromOBJ("player", false);
 
 	camera_.Initialize();
 	worldTransform_.Initialize();
@@ -58,7 +60,8 @@ void GameScene::Initialize() {
 	stage_->Initialize();
 
 	player_ = new Player();
-	player_->Initialize();
+	Vector3 InitPos = {0, 0, 0};
+	player_->Initialize(modelPlayer_,InitPos);
 }
 
 void GameScene::Update() {
@@ -72,6 +75,7 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
+	//背景
 	Sprite::PreDraw(dxCommon->GetCommandList());
 
 	stage_->Draw();
@@ -80,12 +84,14 @@ void GameScene::Draw() {
 
 	dxCommon->ClearDepthBuffer();
 
+	//3Dモデル
 	Model2::PreDraw(dxCommon->GetCommandList());
 
 	player_->Draw(camera_);
 
 	Model2::PostDraw();
 
+	//前景
 	Sprite::PreDraw(dxCommon->GetCommandList());
 
 	Sprite::PostDraw();
