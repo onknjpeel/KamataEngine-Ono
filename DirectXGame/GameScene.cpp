@@ -33,6 +33,10 @@ GameScene::~GameScene() {
 
 	delete graph1_;
 
+	for (int i = 0; i < 5; i++) {
+		delete sprite_[i];
+	}
+
 	Model2::StaticFinalize();
 }
 
@@ -72,6 +76,18 @@ void GameScene::Initialize() {
 	graph2_ = new Graph();
 	Vector4 color2 = {0, 1, 0, 0.5f};
 	graph2_->Initialize(color2, 1);
+
+	size_ = {32.0f, 64.0f};
+
+	uint32_t textureHandle = TextureManager::Load("./Resources/number.png");
+
+	for (int i = 0; i < 5; i++) {
+		sprite_[i] = Sprite::Create(textureHandle, {100.0f + size_.x * i, 5});
+		sprite_[i]->SetSize(size_);
+	}
+
+	roopNum = 0;
+	number = 0;
 }
 
 void GameScene::Update() {
@@ -81,6 +97,25 @@ void GameScene::Update() {
 
 	graph1_->Update();
 	graph2_->Update();
+
+	roopNum += 3;
+	number = roopNum;
+
+	int32_t digit = 10000;
+
+	for (int i = 0; i < 5; i++) {
+		int nowNumber = number / digit;
+
+		sprite_[i]->SetTextureRect({size_.x * nowNumber, 0}, size_);
+
+		number %= digit;
+
+		digit /= 10;
+	}
+
+	if (roopNum >= 99999) {
+		roopNum = 0;
+	}
 
 	worldTransform_.UpdateMatrix();
 }
@@ -109,6 +144,10 @@ void GameScene::Draw() {
 
 	graph1_->Draw();
 	graph2_->Draw();
+
+	for (int i = 0; i < 5; i++) {
+		sprite_[i]->Draw();
+	}
 
 	Sprite::PostDraw();
 }

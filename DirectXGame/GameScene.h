@@ -1,11 +1,11 @@
 #pragma once
 #include "Effect.h"
+#include "Graph.h"
 #include "KamataEngine.h"
 #include "Model2.h"
 #include "Particle.h"
-#include "Stage.h"
 #include "Player.h"
-#include "Graph.h"
+#include "Stage.h"
 
 using namespace KamataEngine;
 
@@ -58,4 +58,10 @@ private:
 
 	Graph* graph1_ = nullptr;
 	Graph* graph2_ = nullptr;
+
+	Sprite* sprite_[5];
+	Vector2 size_;
+
+	int roopNum;
+	int number;
 };
