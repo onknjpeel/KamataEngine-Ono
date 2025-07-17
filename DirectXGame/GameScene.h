@@ -26,6 +26,8 @@ public:
 
 	void EffectBorn(KamataEngine::Vector3 position);
 
+	bool IsFinished() { return isFinished; }
+
 private:
 	Model2* modelParticle_ = nullptr;
 
@@ -64,4 +66,8 @@ private:
 
 	int roopNum;
 	int number;
+
+	Input* input_ = nullptr;
+
+	bool isFinished;
 };

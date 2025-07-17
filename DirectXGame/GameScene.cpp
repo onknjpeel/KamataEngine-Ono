@@ -88,6 +88,8 @@ void GameScene::Initialize() {
 
 	roopNum = 0;
 	number = 0;
+
+	input_ = Input::GetInstance();
 }
 
 void GameScene::Update() {
@@ -118,6 +120,10 @@ void GameScene::Update() {
 	}
 
 	worldTransform_.UpdateMatrix();
+
+	if (input_->TriggerKey(DIK_SPACE)) {
+		isFinished = true;
+	}
 }
 
 void GameScene::Draw() {
