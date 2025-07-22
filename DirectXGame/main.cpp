@@ -1,3 +1,4 @@
+#include "DirectXTex.h"
 #include "IndexBuffer.h"
 #include "KamataEngine.h"
 #include "PipelineState.h"
@@ -5,9 +6,8 @@
 #include "Shader.h"
 #include "VertexBuffer.h"
 #include "WorldTransformEx.h"
-#include <Windows.h>
-#include "DirectXTex.h"
 #include "d3dx12.h"
+#include <Windows.h>
 
 using namespace KamataEngine;
 
@@ -207,6 +207,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	Input* input = Input::GetInstance();
 
+	ImGuiManager* imguiManager = ImGuiManager::GetInstance();
+
 	// メインループ
 	while (true) {
 		if (KamataEngine::Update()) {
@@ -295,6 +297,24 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			}
 		}
 
+		imguiManager->Begin();
+
+		ImGui::Begin("window");
+		ImGui::RadioButton("grayScale", &currentNum, 0);
+		ImGui::SameLine();
+		ImGui::RadioButton("vignette", &currentNum, 1);
+		ImGui::SameLine();
+		ImGui::RadioButton("boxFilter", &currentNum, 2);
+
+		ImGui::RadioButton("gaussianFilter", &currentNum, 3);
+		ImGui::SameLine();
+		ImGui::RadioButton("luminanceBasedOutline", &currentNum, 4);
+		
+		ImGui::RadioButton("radialBlur", &currentNum, 5);
+		ImGui::End();
+
+		imguiManager->End();
+
 		// 描画開始
 		dxCommon->PreDraw();
 
@@ -318,6 +338,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		// 頂点数、インデックス数、インデックスの開始位置、インデックスのオフセット
 		commandList->DrawIndexedInstanced(_countof(indices), 1, 0, 0, 0);
+
+		imguiManager->Draw();
 
 		// 描画終了
 		dxCommon->PostDraw();
