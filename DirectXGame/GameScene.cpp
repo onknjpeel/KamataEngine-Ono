@@ -22,10 +22,6 @@ GameScene::~GameScene() {
 	delete modelRing_;
 	effects_.clear();
 
-	delete titleRogo_;
-
-	delete pushKeyRogo_;
-
 	delete stage_;
 
 	delete player_;
@@ -52,13 +48,6 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 
 	srand((unsigned)time(NULL));
-
-	titlePos = {0.0f, -300.0f};
-	titleGH_ = TextureManager::Load("./Resources/Title/titleRogo.png");
-	titleRogo_ = Sprite::Create(titleGH_, titlePos);
-
-	pushKeyGH_ = TextureManager::Load("./Resources/Title/keyRogo.png");
-	pushKeyRogo_ = Sprite::Create(pushKeyGH_, {0.0f, 0.0f});
 
 	timer = 0;
 

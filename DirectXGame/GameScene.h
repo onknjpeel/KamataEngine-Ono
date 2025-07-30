@@ -43,14 +43,6 @@ private:
 
 	WorldTransform worldTransform_;
 
-	Vector2 titlePos;
-
-	Sprite* titleRogo_ = nullptr;
-	uint32_t titleGH_ = 0;
-
-	Sprite* pushKeyRogo_ = nullptr;
-	uint32_t pushKeyGH_ = 0;
-
 	int timer;
 
 	Stage* stage_ = nullptr;

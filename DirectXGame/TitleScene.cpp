@@ -1,16 +1,49 @@
 #include "TitleScene.h"
 
-TitleScene::~TitleScene() { Model2::StaticFinalize(); }
+TitleScene::~TitleScene() {
+	delete title;
+
+	delete pressStart;
+
+	Model2::StaticFinalize();
+}
 
 void TitleScene::Initialize() {
 	Model2::StaticInitialize();
 	input_ = Input::GetInstance();
 	isFinished = false;
+
+	titlePos = {0.0f, -300.0f};
+	titleGH = TextureManager::Load("./Resources/title.png");
+	title = Sprite::Create(titleGH, titlePos);
+
+	pressGH = TextureManager::Load("./Resources/pressStart.png");
+	pressStart = Sprite::Create(pressGH, {0.0f, 0.0f}, {1, 1, 1, 1});
+
+	colorNum = 0.02f;
 }
 
 void TitleScene::Update() {
-	if (input_->TriggerKey(DIK_SPACE)) {
-		isFinished = true;
+	Vector2 pos = title->GetPosition();
+	if (pos.y < 0.0f) {
+		pos.y += 2.0f;
+	}
+	title->SetPosition(pos);
+
+	Vector4 color = pressStart->GetColor();
+
+	color.w -= colorNum;
+
+	if (color.w <= 0 || color.w >= 1.0f) {
+		colorNum *= -1;
+	}
+
+	pressStart->SetColor(color);
+
+	if (pos.y >= 0) {
+		if (input_->TriggerKey(DIK_SPACE)) {
+			isFinished = true;
+		}
 	}
 }
 
@@ -31,6 +64,9 @@ void TitleScene::Draw() {
 
 	// 前景
 	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	title->Draw();
+	pressStart->Draw();
 
 	Sprite::PostDraw();
 }
