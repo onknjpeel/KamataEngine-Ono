@@ -43,7 +43,7 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 	Model2::StaticInitialize();
 
-	modelParticle_ = Model2::CreateSphere(1, 1);
+	modelParticle_ = Model2::CreateSphere(4, 4);
 	modelEffect_ = Model2::CreateFromOBJ("diamond", false);
 	modelRing_ = Model2::CreateRing(32);
 	modelPlayer_ = Model2::CreateFromOBJ("player", false);
@@ -93,6 +93,21 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	if (graph2_->GetSize().x <= 2) {
+		Vector3 position = {distribution(randomEngine) * 30.0f, distribution(randomEngine) * 20.0f, 0};
+		ParticleBorn(position);
+	}
+	particles_.remove_if([](Particle* particle) {
+		if (particle->IsFinished()) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});
+	for (Particle* particle : particles_) {
+		particle->Update();
+	}
+
 	stage_->Update();
 
 	player_->Update();
@@ -140,6 +155,10 @@ void GameScene::Draw() {
 
 	// 3Dモデル
 	Model2::PreDraw(dxCommon->GetCommandList());
+
+	for (Particle* particle : particles_) {
+		particle->Draw(camera_);
+	}
 
 	player_->Draw(camera_);
 

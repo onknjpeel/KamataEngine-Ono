@@ -11,6 +11,8 @@ public:
 
 	void Draw();
 
+	Vector2 GetSize() { return size_; }
+
 private:
 	Sprite* sprite_ = nullptr;
 	Vector2 size_;
