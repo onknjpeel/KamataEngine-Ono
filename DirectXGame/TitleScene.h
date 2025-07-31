@@ -29,5 +29,8 @@ private:
 	Sprite* pressStart = nullptr;
 	uint32_t pressGH = 0u;
 
+	Sprite* backGround = nullptr;
+	uint32_t backGH = 0u;
+
 	float colorNum;
 };

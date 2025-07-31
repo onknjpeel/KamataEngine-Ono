@@ -20,6 +20,9 @@ void TitleScene::Initialize() {
 	pressGH = TextureManager::Load("./Resources/pressStart.png");
 	pressStart = Sprite::Create(pressGH, {0.0f, 0.0f}, {1, 1, 1, 1});
 
+	backGH = TextureManager::Load("./Resources/backScreen.png");
+	backGround = Sprite::Create(backGH, {0, 0});
+
 	colorNum = 0.02f;
 }
 
@@ -52,6 +55,8 @@ void TitleScene::Draw() {
 
 	// 背景
 	Sprite::PreDraw(dxCommon->GetCommandList());
+
+	backGround->Draw();
 
 	Sprite::PostDraw();
 
