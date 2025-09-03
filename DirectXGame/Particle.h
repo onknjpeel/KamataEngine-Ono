@@ -11,12 +11,6 @@ public:
 
 	void Draw(Camera& camera);
 
-	//イージング(イーズイン)
-	float EaseIn(float t);
-
-	//イージング(イーズアウト)
-	float EaseOut(float t);
-
 private:
 	WorldTransform worldTransform_;
 

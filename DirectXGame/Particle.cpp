@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "Easing.h"
 
 using namespace MathUtility;
 
@@ -34,13 +35,9 @@ void Particle::Update() {
 	objectColor_.SetColor(color_);
 
 	//scaleが0以下の際に自身を削除
-	if (worldTransform_.scale_.x <= 0.0f) {
+	if (time <= 0.0f) {
 		delete this;
 	}
 }
 
 void Particle::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
-
-float Particle::EaseIn(float t) { return t * t; }
-
-float Particle::EaseOut(float t) { return t * (2 - t); }
