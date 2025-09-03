@@ -3,18 +3,18 @@
 
 using namespace KamataEngine;
 
-class Particle {
+class BrastEffect {
 public:
-	void Initialize(Model* model,Vector3 position,Vector3 velocity);
+	void Initialize(Model* model, Vector3 position, Vector3 velocity);
 
 	void Update();
 
 	void Draw(Camera& camera);
 
-	//イージング(イーズイン)
+	// イージング(イーズイン)
 	float EaseIn(float t);
 
-	//イージング(イーズアウト)
+	// イージング(イーズアウト)
 	float EaseOut(float t);
 
 private:

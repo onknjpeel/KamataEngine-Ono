@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 #include "Particle.h"
+#include "BrastEffect.h"
 
 using namespace KamataEngine;
 
@@ -20,11 +21,11 @@ public:
 
 private:
 
-	Model* modelParticle_ = nullptr;
+	Model* modelBrast_ = nullptr;
 
 	Camera camera_;
 
-	std::list<Particle*> particles_;
+	std::list<BrastEffect*> brast_;
 
 	Vector3 velocity;
 };

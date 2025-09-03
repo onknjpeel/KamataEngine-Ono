@@ -1,8 +1,8 @@
-#include "Particle.h"
+#include "BrastEffect.h"
 
 using namespace MathUtility;
 
-void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
+void BrastEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	assert(model);
 	model_ = model;
 	worldTransform_.Initialize();
@@ -17,7 +17,7 @@ void Particle::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	time = 1.0f;
 }
 
-void Particle::Update() {
+void BrastEffect::Update() {
 	time -= float(1.0 / 600);
 
 	if (velocity_.y < 0.0f) {
@@ -33,14 +33,14 @@ void Particle::Update() {
 
 	objectColor_.SetColor(color_);
 
-	//scaleが0以下の際に自身を削除
+	// scaleが0以下の際に自身を削除
 	if (worldTransform_.scale_.x <= 0.0f) {
 		delete this;
 	}
 }
 
-void Particle::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
+void BrastEffect::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
 
-float Particle::EaseIn(float t) { return t * t; }
+float BrastEffect::EaseIn(float t) { return t * t; }
 
-float Particle::EaseOut(float t) { return t * (2 - t); }
+float BrastEffect::EaseOut(float t) { return t * (2 - t); }
