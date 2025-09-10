@@ -1,9 +1,9 @@
-#include "BrastEffect.h"
+#include "FloatEffect.h"
 #include "Easing.h"
 
 using namespace MathUtility;
 
-void BrastEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
+void FloatEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	assert(model);
 	model_ = model;
 	worldTransform_.Initialize();
@@ -15,12 +15,12 @@ void BrastEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 
 	velocity_ = velocity;
 
-	time = 1.0f;
-
 	isFinished_ = false;
+
+	time = 1.0f;
 }
 
-void BrastEffect::Update() {
+void FloatEffect::Update() {
 	if (isFinished_) {
 		return;
 	}
@@ -36,7 +36,7 @@ void BrastEffect::Update() {
 	}
 
 	velocity_ = {velocity_.x * EaseOut(time), velocity_.y * EaseIn(time), velocity_.z * EaseOut(time)};
-	worldTransform_.scale_ = {worldTransform_.scale_.x * EaseIn(time), worldTransform_.scale_.y * EaseIn(time), worldTransform_.scale_.z * EaseIn(time)};
+	worldTransform_.scale_ = {worldTransform_.scale_.x * EaseInElastic(time), worldTransform_.scale_.y * EaseInElastic(time), worldTransform_.scale_.z * EaseInElastic(time)};
 
 	worldTransform_.translation_ += velocity_;
 
@@ -50,4 +50,4 @@ void BrastEffect::Update() {
 	}
 }
 
-void BrastEffect::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
+void FloatEffect::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }

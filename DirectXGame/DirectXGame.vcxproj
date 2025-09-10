@@ -107,10 +107,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BrastEffect.cpp" />
+    <ClCompile Include="DustEffect.cpp" />
     <ClCompile Include="Easing.cpp" />
+    <ClCompile Include="FallEffect.cpp" />
+    <ClCompile Include="FloatEffect.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="SplashEffect.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +194,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrastEffect.h" />
+    <ClInclude Include="DustEffect.h" />
     <ClInclude Include="Easing.h" />
+    <ClInclude Include="FallEffect.h" />
+    <ClInclude Include="FloatEffect.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="SplashEffect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

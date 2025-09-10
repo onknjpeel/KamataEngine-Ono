@@ -1,9 +1,9 @@
 #pragma once
-#include <KamataEngine.h>
+#include "KamataEngine.h"
 
 using namespace KamataEngine;
 
-class BrastEffect {
+class DustEffect {
 public:
 	void Initialize(Model* model, Vector3 position, Vector3 velocity);
 
@@ -24,7 +24,8 @@ private:
 
 	Vector3 velocity_;
 
-	float time = 1.0f;
-
 	bool isFinished_ = false;
+
+	float time = 1.0f;
+	float colorTime = 1.0f;
 };

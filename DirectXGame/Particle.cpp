@@ -34,7 +34,7 @@ void Particle::Update() {
 
 	objectColor_.SetColor(color_);
 
-	//scaleが0以下の際に自身を削除
+	//timeが0以下の際に自身を削除
 	if (time <= 0.0f) {
 		delete this;
 	}

@@ -1,9 +1,9 @@
-#include "BrastEffect.h"
+#include "FallEffect.h"
 #include "Easing.h"
 
 using namespace MathUtility;
 
-void BrastEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
+void FallEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 	assert(model);
 	model_ = model;
 	worldTransform_.Initialize();
@@ -15,12 +15,12 @@ void BrastEffect::Initialize(Model* model, Vector3 position, Vector3 velocity) {
 
 	velocity_ = velocity;
 
-	time = 1.0f;
-
 	isFinished_ = false;
+
+	time = 1.0f;
 }
 
-void BrastEffect::Update() {
+void FallEffect::Update() {
 	if (isFinished_) {
 		return;
 	}
@@ -31,12 +31,15 @@ void BrastEffect::Update() {
 	worldTransform_.rotation_.y += float(rand() % 11 + 5);
 	worldTransform_.rotation_.z += float(rand() % 11 + 5);
 
-	if (velocity_.y < 0.0f) {
+	if (velocity_.y > 0.0f) {
 		velocity_.y *= -1;
+	}
+	if (velocity_.z > 0.0f) {
+		velocity_.z *= -1;
 	}
 
 	velocity_ = {velocity_.x * EaseOut(time), velocity_.y * EaseIn(time), velocity_.z * EaseOut(time)};
-	worldTransform_.scale_ = {worldTransform_.scale_.x * EaseIn(time), worldTransform_.scale_.y * EaseIn(time), worldTransform_.scale_.z * EaseIn(time)};
+	worldTransform_.scale_ = {worldTransform_.scale_.x * EaseInElastic(time), worldTransform_.scale_.y * EaseInElastic(time), worldTransform_.scale_.z * EaseInElastic(time)};
 
 	worldTransform_.translation_ += velocity_;
 
@@ -50,4 +53,4 @@ void BrastEffect::Update() {
 	}
 }
 
-void BrastEffect::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
+void FallEffect::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, &objectColor_); }
